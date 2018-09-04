@@ -1,0 +1,3 @@
+rootProject.name = 'QollectR'
+
+include ':app'
