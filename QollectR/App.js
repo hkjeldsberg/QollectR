@@ -7,28 +7,56 @@
  */
 
 import React, {Component} from 'react';
-import {AppRegistry,  TouchableOpacity,Linking, Platform, StyleSheet, Text, View} from 'react-native';
+import {AppRegistry,  TouchableOpacity,Linking, Platform, Alert, StyleSheet, Text, View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 type Props = {};
-export default class App extends Component<Props> {
+
+
+export default class App extends Component<{}> {
+
+  constructor() {
+    super();
+
+    this.state = {
+      example: undefined
+    };
+  }
+
+
   onSuccess(e) {
    Linking
      .openURL(e.data)
      .catch(err => console.error('An error occured', err));
   }
+
+  onTapImage(e) {
+    console.log("Tapped on an image");
+    console.log(this.props);
+   Linking
+     .openURL(e.data)
+     .catch(err => console.error('An error occured', err));
+  }
+
+  onButtonPress(){
+    Alert.alert("Du tæppet knappen!")
+  }
+
   render() {
+        //onRead={this.onSuccess.bind(this)}
     return (
       <QRCodeScanner
-        onRead={this.onSuccess.bind(this)}
+        onRead={this.onTapImage.bind(this)}
+        reactivate={true}
+        reactivateTimeout={5000}
         topContent={
           <Text style={styles.centerText}>
-            Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+            Skann en vilkårlig <Text style={styles.textBold}>QR-kode</Text>.
           </Text>
         }
         bottomContent={
-          <TouchableOpacity style={styles.buttonTouchable}>
-            <Text style={styles.buttonText}>OK. Got it!</Text>
+          <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonTouchable}>
+            <Text style={styles.buttonText}>OK. Jeg skjønner!</Text>
           </TouchableOpacity>
         }
       />
