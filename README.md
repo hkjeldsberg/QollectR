@@ -1,2 +1,2 @@
 # QollectR
-Android app project (React)
+Android app project (JS/React)
