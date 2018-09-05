@@ -11,6 +11,7 @@ import {AppRegistry,  TouchableOpacity,Linking, Platform, Alert, StyleSheet, Tex
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import MenuPage from './MenuPage';
 import HomePage from './HomePage';
+import QRPage from './QRPage';
 import { createStackNavigator } from 'react-navigation';
 
 type Props = {};
@@ -18,6 +19,7 @@ type Props = {};
 const App = createStackNavigator({
   Home: { screen: HomePage },
   Menu: { screen: MenuPage },
+  QR: { screen: QRPage }
 });
 
 export default App;

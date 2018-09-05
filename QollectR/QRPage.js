@@ -7,18 +7,16 @@
  */
 
 import React, {Component} from 'react';
-import {Image, ImageBackground, AppRegistry,  TouchableOpacity,Linking, Platform, Alert, StyleSheet, Text, View} from 'react-native';
+import {AppRegistry,  TouchableOpacity,Linking, Platform, Alert, StyleSheet, Text, View} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import MenuPage from './MenuPage';
 import { createStackNavigator } from 'react-navigation';
 
 type Props = {};
 
-export default class HomePage extends Component<{}> {
+export default class QRPage extends Component<{}> {
   static navigationOptions = {
-      header: null,
-      footer: null,
-      borderBottomWidth:0
+      title: 'Velkommen til QollectR',
   };
 
   constructor() {
@@ -44,61 +42,48 @@ export default class HomePage extends Component<{}> {
   render() {
       const { navigate } = this.props.navigation;
       return (
-        <View style={styles.container}>
-  <ImageBackground
-    source={require('./gradgr.png')}
-    style={styles.image}>
-      <Text
-        onPress={() => navigate('QR')}
-        style={styles.paragraph}>
-        LOGIN
-        </Text>
-    </ImageBackground>
-    </View>
-  );
-  }
+      <QRCodeScanner
+        onRead={this.onTapImage.bind(this)}
+        reactivate={true}
+        reactivateTimeout={5000}
+        topContent={
+          <Text style={styles.centerText}>
+            Skann en vilkårlig <Text style={styles.textBold}>QR-kode</Text>.
+          </Text>
+        }
+        bottomContent={
+          <TouchableOpacity onPress={() => navigate('Menu')} style={styles.buttonTouchable}>
+            <Text style={styles.buttonText}>Detaljer om appen</Text>
+          </TouchableOpacity>
+        }
+      />
+      );
+    }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'stretch',
-      justifyContent: 'center',
-    },
-    image: {
-      flexGrow:1,
-      height:null,
-      width:null,
-      alignItems: 'center',
-      justifyContent:'center',
-    },
-    paragraph: {
-      color: 'white',
-      fontSize: 40,
-      fontWeight:  '400',
-      textAlign: 'center',
-    },
   centerText: {
     flex: 1,
     fontSize: 23,
+    padding: 36,
     color: '#777',
-    alignItems: 'center'
   },
   textBold: {
-    fontWeight: '700',
+    fontWeight: '500',
     color: '#000',
   },
   buttonText: {
     fontSize: 21,
     color: '#000',
     backgroundColor: 'rgb(88, 185, 164)',
-    width: 200,
-    height: 70,
+    width: 240,
+    height: 50,
     borderRadius: 2,
     textAlign: 'center',
-    textAlignVertical: 'center',
+    padding: 10
   },
   buttonTouchable: {
+    padding: 16,
   },
 });
 //AppRegistry.registerComponent('default', () => App);
